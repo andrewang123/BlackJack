@@ -29,13 +29,13 @@ def rules():
           "dealer without exceeding 21")
     print("3. Let the dealer draw additional "
           "cards until their hand exceeds 21. ")
+
 def setUpGame(userName):
     cards= [1,2,3,4,5,6,7,8,9,10,11,12,13] # Ace = 1 or 11, J=11, Q=12, K=13
     userCardOne = random.randint(1,13)
     userCardTwo = random.randint(1,13)
     compCardOne = random.randint(1,13)
     compCardTwo = random.randint(1,13)
-
     # cards before conversion
     print(userName, "your two cards are: ", userCardOne, "and", userCardTwo)
     #print("Computer Cards are ", compCardOne, "and", compCardTwo)
@@ -52,19 +52,14 @@ def setUpGame(userName):
     # ask if user wants to change ace to 11
     if(userCardOne == 1):
         print("Do you want to change the value of Ace to 11? (yes or no)")
-
         choice = int(input())
-
         if (choice == 1):
             userCardOne = 11
-
     if (userCardTwo == 1):
         print("Do you want to change the value of Ace to 11? (1. yes, 2. no)")
-
         choice = int(input())
         if (choice == "yes"):
             userCardTwo = 11
-
     #Always choose 11 for the ace value
     if(compCardOne == 1):
         compCardOne = 11
@@ -78,10 +73,8 @@ def setUpGame(userName):
     print("User total:", userTotal)
     #print("Computer Cards Value are ", compCardOne, "and", compCardTwo)
     #print("Comp total:", compTotal)
-
     choice = 0
     playGame(choice, userTotal, compTotal)
-
 
 def playGame(choice, userTotal, compTotal):
 
