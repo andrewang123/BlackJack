@@ -1,6 +1,7 @@
 import sys #user input
 import random
 from random import randint
+
 #gets the users name
 def getUserName():
     name = input('What is your name? ')
@@ -28,7 +29,7 @@ def rules():
           "dealer without exceeding 21")
     print("3. Let the dealer draw additional "
           "cards until their hand exceeds 21. ")
-def playGame(userName):
+def setUpGame(userName):
     cards= [1,2,3,4,5,6,7,8,9,10,11,12,13] # Ace = 1 or 11, J=11, Q=12, K=13
     userCardOne = random.randint(1,13)
     userCardTwo = random.randint(1,13)
@@ -37,7 +38,7 @@ def playGame(userName):
 
     # cards before conversion
     print(userName, "your two cards are: ", userCardOne, "and", userCardTwo)
-    print("Computer Cards are ", compCardOne, "and", compCardTwo)
+    #print("Computer Cards are ", compCardOne, "and", compCardTwo)
     #Convert all of the jacks, queens and kings to 10s
     if userCardOne in(11, 12,13):
         userCardOne = 10
@@ -52,30 +53,59 @@ def playGame(userName):
     if(userCardOne == 1):
         print("Do you want to change the value of Ace to 11? (yes or no)")
 
-        choice = input()
-        if (choice == "yes"):
+        choice = int(input())
+
+        if (choice == 1):
             userCardOne = 11
 
     if (userCardTwo == 1):
         print("Do you want to change the value of Ace to 11? (1. yes, 2. no)")
 
-        choice = input()
-        choice = input()
+        choice = int(input())
         if (choice == "yes"):
             userCardTwo = 11
+
+    #Always choose 11 for the ace value
+    if(compCardOne == 1):
+        compCardOne = 11
+    if(compCardTwo ==1):
+        compCardTwo = 11
+
 # DO ONE FOR COMPUTER PICK THE BEST VALUE
-
+    userTotal = userCardOne + userCardTwo
+    compTotal = compCardOne + compCardTwo
     #cards after conversion
-    print("Two values: ", userCardOne, "and", userCardTwo)
-    print("User total:", userCardOne + userCardTwo)
-    print("Computer Cards Value are ", compCardOne, "and", compCardTwo)
-    print("Comp total:", compCardOne + compCardTwo)
+    print("User total:", userTotal)
+    #print("Computer Cards Value are ", compCardOne, "and", compCardTwo)
+    #print("Comp total:", compTotal)
+
+    choice = 0
+    playGame(choice, userTotal, compTotal)
 
 
+def playGame(choice, userTotal, compTotal):
 
-
-
-
+    while choice != 2:
+        print("1. Hit 2. Stand")
+        choice = input();
+        choice = int(choice)
+        #user chose to hit
+        if (choice == 1):
+            nextCard = random.randint(1,13)
+            print("You pulled", nextCard)
+            userTotal += nextCard
+            print("Your total is:", userTotal)
+            if (userTotal) > 21:
+                print("You just went over 21, you lose.")
+                print("The computer got", compTotal)
+                choice = 2 #exit the while loop
+        else:
+            print("Your total is:", userTotal)
+            print("Computers Total:", compTotal)
+            if userTotal > compTotal and userTotal <= 21:
+                print("You Win!")
+            else:
+                print("You Lose!")
 
 #main where the code starts
 userName = getUserName()
@@ -87,7 +117,12 @@ if choice == 2:
     rules()
 elif (choice != 2 and choice != 1):
     print("Ok,", choice, "wasnt an option...")
+playAgain = 1
+while playAgain == 1:
+    setUpGame(userName)
+    print("play again? (1. yes, 2.no)")
+    playAgain = int(input())
 
-playGame(userName)
+#Make it so if they draw an ace in the middle of the game they can pick again!!!
 
 
